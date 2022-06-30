@@ -65,8 +65,6 @@ object LiquidBounce {
     // Menu Background
     var background: ResourceLocation? = null
 
-    // Discord RPC
-    lateinit var clientRichPresence: ClientRichPresence
 
     /**
      * Execute if client will be started
@@ -75,6 +73,7 @@ object LiquidBounce {
         isStarting = true
 
         ClientUtils.getLogger().info("Starting $CLIENT_NAME $CLIENT_VERSION $CLIENT_COMMIT, by $CLIENT_CREATOR")
+        ClientUtils.getLogger().info("No discord rich presence Patched by Lykeesh :)")
 
         // Create file manager
         fileManager = FileManager()
@@ -88,9 +87,6 @@ object LiquidBounce {
         eventManager.registerListener(BungeeCordSpoof())
         eventManager.registerListener(CapeService)
         eventManager.registerListener(InventoryUtils())
-
-        // Init Discord RPC
-        clientRichPresence = ClientRichPresence()
 
         // Create command manager
         commandManager = CommandManager()
@@ -142,17 +138,6 @@ object LiquidBounce {
         // Load generators
         GuiAltManager.loadActiveGenerators()
 
-        // Setup Discord RPC
-        if (clientRichPresence.showRichPresenceValue) {
-            thread {
-                try {
-                    clientRichPresence.setup()
-                } catch (throwable: Throwable) {
-                    ClientUtils.getLogger().error("Failed to setup Discord RPC.", throwable)
-                }
-            }
-        }
-
         // Refresh cape service
         CapeService.refreshCapeCarriers {
             ClientUtils.getLogger().info("Successfully loaded ${CapeService.capeCarriers.count()} cape carriers.")
@@ -171,9 +156,6 @@ object LiquidBounce {
 
         // Save all available configs
         fileManager.saveAllConfigs()
-
-        // Shutdown discord rpc
-        clientRichPresence.shutdown()
     }
 
 }

@@ -58,8 +58,6 @@ public class ValuesConfig extends FileConfig {
 
             if (entry.getKey().equalsIgnoreCase("CommandPrefix")) {
                 LiquidBounce.commandManager.setPrefix(entry.getValue().getAsCharacter());
-            } else if (entry.getKey().equalsIgnoreCase("ShowRichPresence")) {
-                LiquidBounce.clientRichPresence.setShowRichPresenceValue(entry.getValue().getAsBoolean());
             } else if (entry.getKey().equalsIgnoreCase("targets")) {
                 JsonObject jsonValue = (JsonObject) entry.getValue();
 
@@ -140,7 +138,6 @@ public class ValuesConfig extends FileConfig {
         final JsonObject jsonObject = new JsonObject();
 
         jsonObject.addProperty("CommandPrefix", LiquidBounce.commandManager.getPrefix());
-        jsonObject.addProperty("ShowRichPresence", LiquidBounce.clientRichPresence.getShowRichPresenceValue());
 
         final JsonObject jsonTargets = new JsonObject();
         jsonTargets.addProperty("TargetPlayer", EntityUtils.targetPlayer);
